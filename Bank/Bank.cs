@@ -57,7 +57,7 @@ namespace Bank
 
         public void Deposit(decimal sum, Guid id)
         {
-            T account = (from a in accounts where a.Id == id select a) as T;
+            T account = accounts.Find(x => x.Id == id);
             if (account == null)
                 throw new Exception("Bad Id");
 
@@ -66,7 +66,7 @@ namespace Bank
 
         public void Withdraw(decimal sum, Guid id)
         {
-            T account = (from a in accounts where a.Id == id select a) as T;
+            T account = accounts.Find(x => x.Id == id);
             if (account == null)
                 throw new Exception("Bad Id");
 
@@ -85,9 +85,9 @@ namespace Bank
 
         public void Close(Guid id)
         {
-            T account = (from a in accounts where a.Id == id select a) as T;
+            T account = accounts.Find(x => x.Id == id);
 
-            account?.Close();
+            account.Close();
 
             accounts.Remove(account);
         }
